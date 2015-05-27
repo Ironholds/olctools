@@ -2,6 +2,9 @@
 
 olc_validate::olc_validate(){
   valid_chars = "CFGHJMPQRVWX23456789+";
+  separator = "+";
+  separator_position = 8;
+  padding = "0";
 }
 
 bool olc_validate::olc_check_single(std::string olc){
@@ -21,7 +24,6 @@ bool olc_validate::olc_check_single(std::string olc){
     }
 
   }
-
 
   return output;
 }

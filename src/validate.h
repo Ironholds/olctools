@@ -9,6 +9,9 @@ class olc_validate {
 private:
 
   std::string valid_chars;
+  std::string separator;
+  std::string separator_position;
+  std::string padding;
 
   bool olc_check_single(std::string olc);
 
