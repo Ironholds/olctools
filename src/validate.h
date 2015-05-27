@@ -10,7 +10,7 @@ private:
 
   std::string valid_chars;
   std::string separator;
-  std::string separator_position;
+  int separator_position;
   std::string padding;
 
   bool olc_check_single(std::string olc);
