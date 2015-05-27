@@ -1,0 +1,13 @@
+Package: olctools
+Type: Package
+Title: Open Locator Code Handling in R
+Version: 0.0.9001
+Date: 2015-05-27
+Author: Who wrote it
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: Open Locator Codes are a Google-created standard for identifying geographic locations. olctools provides utilities for
+             validating, encoding and decoding entries from this standard.
+License: MIT + file LICENSE
+Suggests: testthat
+LinkingTo: Rcpp
+Imports: Rcpp
