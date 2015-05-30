@@ -19,6 +19,8 @@ private:
 
   bool olc_check_short_single(std::string olc);
 
+  bool olc_check_either_single(std::string olc);
+
 public:
   olc_validate();
 

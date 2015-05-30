@@ -35,7 +35,7 @@ bool olc_validate::olc_check_full_single(std::string olc){
   if(!output){
     return output;
   }
-
+  return output;
 }
 
 bool olc_validate::olc_check_short_single(std::string olc){
@@ -45,10 +45,8 @@ bool olc_validate::olc_check_short_single(std::string olc){
   if(!output){
     return output;
   }
-
-
+  return output;
 }
-
 
 std::vector < bool > olc_validate::olc_check_vector(std::vector < std::string > olc){
 
