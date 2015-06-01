@@ -48,13 +48,43 @@ bool olc_validate::olc_check_short_single(std::string olc){
   return output;
 }
 
-std::vector < bool > olc_validate::olc_check_vector(std::vector < std::string > olc){
+bool olc_validate::olc_check_either_single(std::string olc){
 
+  if(olc_check_full_single(olc) || olc_check_short_single(olc)){
+    return true;
+  }
+
+  return false;
+}
+
+std::vector < bool > olc_validate::olc_check_full_vector(std::vector < std::string > olc){
   int input_size = olc.size();
   std::vector < bool > output(input_size);
 
   for(unsigned int i = 0; i < input_size; i++){
-    output[i] = olc_check_single(olc[i]);
+    output[i] = olc_check_full_single(olc[i]);
+  }
+
+  return output;
+}
+
+std::vector < bool > olc_validate::olc_check_short_vector(std::vector < std::string > olc){
+  int input_size = olc.size();
+  std::vector < bool > output(input_size);
+
+  for(unsigned int i = 0; i < input_size; i++){
+    output[i] = olc_check_short_single(olc[i]);
+  }
+
+  return output;
+}
+
+std::vector < bool > olc_validate::olc_check_either_vector(std::vector < std::string > olc){
+  int input_size = olc.size();
+  std::vector < bool > output(input_size);
+
+  for(unsigned int i = 0; i < input_size; i++){
+    output[i] = olc_check_either_single(olc[i]);
   }
 
   return output;

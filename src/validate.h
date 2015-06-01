@@ -24,7 +24,10 @@ private:
 public:
   olc_validate();
 
-  std::vector < bool > olc_check_vector(std::vector < std::string > olc);
+  std::vector < bool > olc_check_full_vector(std::vector < std::string > olc);
+  std::vector < bool > olc_check_short_vector(std::vector < std::string > olc);
+  std::vector < bool > olc_check_either_vector(std::vector < std::string > olc);
+
 };
 
 #endif
