@@ -5,14 +5,36 @@
 
 using namespace Rcpp;
 
-// cpp_validate
-std::vector < bool > cpp_validate(std::vector < std::string > codes);
-RcppExport SEXP olctools_cpp_validate(SEXP codesSEXP) {
+// valid_olc
+std::vector < bool > valid_olc(std::vector < std::string > codes);
+RcppExport SEXP olctools_valid_olc(SEXP codesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< std::vector < std::string > >::type codes(codesSEXP);
-    __result = Rcpp::wrap(cpp_validate(codes));
+    __result = Rcpp::wrap(valid_olc(codes));
+    return __result;
+END_RCPP
+}
+// valid_short
+std::vector < bool > valid_short(std::vector < std::string > codes);
+RcppExport SEXP olctools_valid_short(SEXP codesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::vector < std::string > >::type codes(codesSEXP);
+    __result = Rcpp::wrap(valid_short(codes));
+    return __result;
+END_RCPP
+}
+// valid_full
+std::vector < bool > valid_full(std::vector < std::string > codes);
+RcppExport SEXP olctools_valid_full(SEXP codesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::vector < std::string > >::type codes(codesSEXP);
+    __result = Rcpp::wrap(valid_full(codes));
     return __result;
 END_RCPP
 }
