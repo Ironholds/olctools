@@ -45,6 +45,11 @@ bool olc_validate::olc_check_short_single(std::string olc){
   if(!output){
     return output;
   }
+
+  size_t separator_location = olc.find(separator);
+  if(separator_location == std::string::npos || separator_location % 2 == 1){
+    output = false;
+  }
   return output;
 }
 
