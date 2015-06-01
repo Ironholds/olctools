@@ -9,9 +9,11 @@ olc_validate::olc_validate(){
 
 bool olc_validate::olc_check_single(std::string olc){
 
+  //Set up for scanning
   bool output = true;
   int input_size = olc.size();
 
+  //Scan for illegal characters
   if(input_size == 0){
     output = false;
   } else {
@@ -19,13 +21,31 @@ bool olc_validate::olc_check_single(std::string olc){
     for(unsigned int i = 0; i < input_size; i++){
       if(valid_chars.find(toupper(olc[i])) == std::string::npos){
         output = false;
-        break;
+        return output;
       }
     }
 
   }
 
-  return output;
+  //Check that the separator is present
+  size_t separator_location = olc.find(separator);
+  if(separator_location == std::string::npos){
+    output = false;
+    return output;
+  }
+
+  //If it is present, are there >1? Also a no-no
+  if(separator_location != olc.rfind(separator)){
+    output = false;
+    return output;
+  }
+
+  //If it is present, is it present in a valid location?
+  if(separator_location > separator_position || separator_location % 2 == 1){
+    output = false;
+    return output;
+  }
+
 }
 
 bool olc_validate::olc_check_full_single(std::string olc){
@@ -46,10 +66,6 @@ bool olc_validate::olc_check_short_single(std::string olc){
     return output;
   }
 
-  size_t separator_location = olc.find(separator);
-  if(separator_location == std::string::npos || separator_location % 2 == 1){
-    output = false;
-  }
   return output;
 }
 
