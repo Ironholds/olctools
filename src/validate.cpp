@@ -78,6 +78,12 @@ bool olc_validate::olc_check_single(std::string olc){
     if(results.position(0) == 0){
       return false;
     }
+
+    //Iff the code has padding characters, the separator
+    //must be the last character
+    if(separator_location != (olc.size() - 1)){
+      return false;
+    }
   }
 
   return true;
@@ -86,22 +92,27 @@ bool olc_validate::olc_check_single(std::string olc){
 bool olc_validate::olc_check_full_single(std::string olc){
 
   //Run a character check first to avoid being silly.
-  bool output = olc_check_single(olc);
-  if(!output){
-    return output;
+  //If it's not valid, or is a valid short, it's not a valid full.
+  if(!olc_check_single(olc) || olc_check_short_single(olc)){
+    return false;
   }
-  return output;
+  return true;
 }
 
 bool olc_validate::olc_check_short_single(std::string olc){
 
   //Run a character check first to avoid being silly.
-  bool output = olc_check_single(olc);
-  if(!output){
-    return output;
+  if(!olc_check_single(olc)){
+    return false;
   }
 
-  return output;
+  //If the separator is < separator_position..it's a short.
+  if(olc.find(separator) < separator_position){
+    return true;
+  };
+
+  //Otherwise, false.
+  return false;
 }
 
 bool olc_validate::olc_check_either_single(std::string olc){
