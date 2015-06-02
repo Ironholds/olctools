@@ -1,4 +1,5 @@
 #include "validate.h"
+#include "coders.h"
 using namespace Rcpp;
 
 //'@title Check the Validity of Open Location Codes
@@ -13,6 +14,15 @@ using namespace Rcpp;
 //'@return a vector of TRUE and FALSE values, where TRUE corresponds to a
 //'valid code and FALSE an invalid.
 //'
+//'@examples
+//'#Validate that a particular OLC is valid
+//'valid_olc("WC2345+G6g")
+//'#[1] TRUE
+//'
+//'#It is! Is it a short?
+//'valid_short("WC2345+G6g")
+//'#[1] TRUE
+//'#Yep!
 //'@export
 //'@aliases olc_validate
 //'@rdname olc_validate

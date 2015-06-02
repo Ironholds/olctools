@@ -3,7 +3,7 @@
 using namespace Rcpp;
 
 #ifndef __OLC_VALIDATE__
-#define __OCL_VALIDATE__
+#define __OLC_VALIDATE__
 
 class olc_validate {
 
