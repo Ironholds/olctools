@@ -1,4 +1,5 @@
 #include <Rcpp.h>
+#include <regex>
 using namespace Rcpp;
 
 #ifndef __OLC_VALIDATE__
@@ -12,6 +13,7 @@ private:
   std::string separator;
   int separator_position;
   std::string padding;
+  std::regex padding_regex;
 
   bool olc_check_single(std::string olc);
 

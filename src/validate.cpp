@@ -1,27 +1,25 @@
 #include "validate.h"
 
 olc_validate::olc_validate(){
-  valid_chars = "CFGHJMPQRVWX23456789+";
+  valid_chars = "CFGHJMPQRVWX23456789+0";
   separator = "+";
   separator_position = 8;
   padding = "0";
+  padding_regex = std::regex((padding + "+"));
 }
 
 bool olc_validate::olc_check_single(std::string olc){
 
-  //Set up for scanning
-  bool output = true;
-  int input_size = olc.size();
-
   //Scan for illegal characters
+  int input_size = olc.size();
   if(input_size == 0){
-    output = false;
+    return false;
   } else {
 
     for(unsigned int i = 0; i < input_size; i++){
       if(valid_chars.find(toupper(olc[i])) == std::string::npos){
-        output = false;
-        return output;
+        return false;
+
       }
     }
 
@@ -30,22 +28,47 @@ bool olc_validate::olc_check_single(std::string olc){
   //Check that the separator is present
   size_t separator_location = olc.find(separator);
   if(separator_location == std::string::npos){
-    output = false;
-    return output;
+    return false;
   }
 
   //If it is present, are there >1? Also a no-no
   if(separator_location != olc.rfind(separator)){
-    output = false;
-    return output;
+    return false;
+
   }
 
   //If it is present, is it present in a valid location?
   if(separator_location > separator_position || separator_location % 2 == 1){
-    output = false;
-    return output;
+    return false;
   }
 
+  //Check if padding is present
+  std::sregex_iterator iter(olc.begin(), olc.end(), padding_regex);
+  std::sregex_iterator end;
+  std::smatch results;
+  int regex_count = 0;
+
+  while(iter != end){
+    results = *iter;
+    iter++;
+    regex_count++;
+  }
+
+  //If it is present..
+  if(regex_count){
+
+    //Multiple instances is verboten
+    if(regex_count > 1){
+      return false;
+    }
+
+    //So is a single instant with a non-even count.
+    if(results.length(0) % 2 == 1){
+      return false;
+    }
+  }
+
+  return true;
 }
 
 bool olc_validate::olc_check_full_single(std::string olc){
