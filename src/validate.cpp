@@ -31,14 +31,21 @@ bool olc_validate::olc_check_single(std::string olc){
     return false;
   }
 
-  //If it is present, are there >1? Also a no-no
+  //Are there >1? Also a no-no
   if(separator_location != olc.rfind(separator)){
     return false;
 
   }
 
-  //If it is present, is it present in a valid location?
+  //Is it present in a valid location?
   if(separator_location > separator_position || separator_location % 2 == 1){
+    return false;
+  }
+
+  //Is there only 1 character after the separator? (you don't need to have chars but
+  //you can't have just 1)
+  //(C++ is 0-offset and that includes find() results. Sigh.)
+  if((olc.size() - separator_location) == 2){
     return false;
   }
 
@@ -64,6 +71,11 @@ bool olc_validate::olc_check_single(std::string olc){
 
     //So is a single instant with a non-even count.
     if(results.length(0) % 2 == 1){
+      return false;
+    }
+
+    //..and so is a single instance starting at 0
+    if(results.position(0) == 0){
       return false;
     }
   }
