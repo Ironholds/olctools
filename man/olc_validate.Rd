@@ -27,4 +27,14 @@ a vector of OLCs are valid "short" codes; \code{valid_long} identifies
 whether OLCs are valid "long" codes, and \code{valid_full} identifies
 whether OLCs are valid, full stop.
 }
+\examples{
+#Validate that a particular OLC is valid
+valid_olc("WC2345+G6g")
+#[1] TRUE
+
+#It is! Is it a short?
+valid_short("WC2345+G6g")
+#[1] TRUE
+#Yep!
+}
 

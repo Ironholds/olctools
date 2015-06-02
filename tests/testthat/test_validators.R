@@ -12,3 +12,8 @@ test_that("Invalid short OLCs can be identified", {
                       "8FWCX400+")
   expect_that(any(valid_short(invalid_shorts)), equals(FALSE))
 })
+
+test_that("Valid short OLCs can be identified", {
+  valid_shorts <- c("WC2345+G6g","2345+G6", "45+G6", "+G6")
+  expect_that(all(valid_short(valid_shorts)), equals(TRUE))
+})
