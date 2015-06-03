@@ -9,12 +9,23 @@ class olc_validate {
 
 private:
 
-  std::string valid_chars;
-  std::string separator;
-  int separator_position;
-  std::string padding;
-  std::regex padding_regex;
+  std::string valid_chars = "CFGHJMPQRVWX23456789+0";
+
+  std::string separator = "+";
+
+  int separator_position = 8;
+
+  std::string padding = "0";
+
+  std::regex padding_regex = std::regex((padding + "+"));
+
   std::string character_set = "23456789CFGHJMPQRVWX";
+
+  int charset_length = character_set.size();
+
+  int max_latitude = 90;
+
+  int max_longitude = 100;
 
   bool olc_check_single(std::string olc);
 
@@ -25,7 +36,6 @@ private:
   bool olc_check_either_single(std::string olc);
 
 public:
-  olc_validate();
 
   std::vector < bool > olc_check_full_vector(std::vector < std::string > olc);
   std::vector < bool > olc_check_short_vector(std::vector < std::string > olc);
