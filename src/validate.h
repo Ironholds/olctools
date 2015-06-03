@@ -14,6 +14,7 @@ private:
   int separator_position;
   std::string padding;
   std::regex padding_regex;
+  std::string character_set = "23456789CFGHJMPQRVWX";
 
   bool olc_check_single(std::string olc);
 

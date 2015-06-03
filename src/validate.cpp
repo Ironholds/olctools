@@ -96,6 +96,20 @@ bool olc_validate::olc_check_full_single(std::string olc){
   if(!olc_check_single(olc) || olc_check_short_single(olc)){
     return false;
   }
+
+  //Retrieve the first latitude value (the first value), decode
+  //it into numeric, and see if it's >= 180. If so, unpossible.
+  if((character_set.find(olc[0]) * character_set.size()) >= 180){
+    return false;
+  }
+
+  //Do the same for longitude, only this time >=360
+  if(olc.size() > 1){
+    if((character_set.find(olc[1]) * character_set.size()) >= 90){
+      return false;
+    }
+  }
+
   return true;
 }
 
