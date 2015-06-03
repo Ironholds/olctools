@@ -17,3 +17,13 @@ test_that("Valid short OLCs can be identified", {
   valid_shorts <- c("WC2345+G6g","2345+G6", "45+G6", "+G6")
   expect_that(all(valid_short(valid_shorts)), equals(TRUE))
 })
+
+test_that("Invalid full OLCs can be identified", {
+  invalid_full <- c("WC2345+G6g","2345+G6", "45+G6", "+G6")
+  expect_that(any(valid_full(invalid_full)), equals(FALSE))
+})
+
+test_that("Valid full OLCs can be identified", {
+  valid_fulls <- c("8FWC2345+G6","8FWC2345+G6G", "8FWCX400+")
+  expect_that(all(valid_full(valid_fulls)), equals(TRUE))
+})

@@ -105,7 +105,7 @@ bool olc_validate::olc_check_full_single(std::string olc){
 
   //Do the same for longitude, only this time >=360
   if(olc.size() > 1){
-    if((character_set.find(olc[1]) * character_set.size()) >= 90){
+    if((character_set.find(olc[1]) * character_set.size()) >= 360){
       return false;
     }
   }
