@@ -6,8 +6,10 @@ using namespace Rcpp;
 #define __OLC_CODE__
 
 class olc_coders {
-
+friend class olc_validate;
 private:
+
+  int max_code_length = 10;
 
   std::string olc_encode_single(double lat, double long, int output_length);
 
@@ -17,7 +19,8 @@ private:
 
 public:
 
-  std::string olc_encode_vector(std::vector < double > latitude, std::vector < double > longitude, std::vector < int > output_length);
+  std::vector < std::string > olc_encode_vector(std::vector < double > latitude, std::vector < double > longitude,
+                                                std::vector < int > code_length);
 
   DataFrame olc_decode_vector(std::vector < std::string > olc);
 
