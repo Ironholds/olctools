@@ -1,21 +1,46 @@
 #include "coders.h"
 
 double olc_coders::clip_lat(double lat){
+
+  if(lat < -90){
+    return -90;
+  }
+
+  if(lat > 90){
+    return 90;
+  }
+
+  return lat;
 }
 
 double olc_coders::clip_longitude(double longitude){
 
+  while(longitude < -180){
+    longitude = longitude + 360;
+  }
+
+  while(longitude >= 180){
+    longitude = longitude - 360;
+  }
+
+  return longitude;
 }
-std::string olc_coders::olc_encode_single(double lat, double long, int output_length){
+
+std::string olc_coders::olc_encode_single(double lat, double longitude, int output_length){
 
   if(output_length < 2 || (output_length < separator_position && output_length % 2 == 1)){
     throw std::range_error("The code_length value you have provided is not valid; see the documentation");
   }
 
+  std::string output;
+  lat = clip_lat(lat);
+  longitude = clip_longitude(longitude);
 
+  return output;
 }
 
 std::vector < double > olc_coders::olc_decode_single(std::string olc){
+
 
 }
 

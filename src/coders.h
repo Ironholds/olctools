@@ -5,8 +5,8 @@ using namespace Rcpp;
 #ifndef __OLC_CODE__
 #define __OLC_CODE__
 
-class olc_coders {
-friend class olc_validate;
+class olc_coders: public olc_validate {
+
 private:
 
   int max_code_length = 10;

@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 class olc_validate {
 
-private:
+protected:
 
   std::string valid_chars = "CFGHJMPQRVWX23456789+0";
 
@@ -26,6 +26,8 @@ private:
   int max_latitude = 90;
 
   int max_longitude = 100;
+
+private:
 
   bool olc_check_single(std::string olc);
 
