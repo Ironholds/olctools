@@ -26,6 +26,10 @@ double olc_coders::clip_longitude(double longitude){
   return longitude;
 }
 
+double olc_coders::lat_precision(int length){
+
+}
+
 std::string olc_coders::olc_encode_single(double lat, double longitude, int output_length){
 
   if(output_length < 2 || (output_length < separator_position && output_length % 2 == 1)){
@@ -34,6 +38,9 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
 
   std::string output;
   lat = clip_lat(lat);
+  if(lat == 90){
+    lat = lat_precision(output_length);
+  }
   longitude = clip_longitude(longitude);
 
   return output;

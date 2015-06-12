@@ -15,6 +15,8 @@ private:
 
   double clip_longitude(double longitude);
 
+  double lat_precision(int length);
+
   std::string olc_encode_single(double lat, double longitude, int output_length);
 
   std::vector < double > olc_decode_single(std::string olc);
