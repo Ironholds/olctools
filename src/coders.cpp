@@ -47,8 +47,32 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
     lat = lat_precision(output_length);
   }
 
-  //output = encode_pair(lat, longitude, fmin(output_length, max_pair_length));
+  int to_encode_length = fmin(output_length, max_pair_length);
+  int adjusted_lat = lat + max_latitude;
+  int adjusted_long = longitude + max_longitude;
+  int digit_value, digit_count = 0;
+  double place_value;
 
+  while(digit_count < to_encode_length){
+
+    //Lat first
+    place_value = floor(digit_count/2);
+    digit_value = floor(adjusted_lat/place_value);
+    adjusted_lat -= digit_value * place_value;
+    output+= character_set[digit_value];
+    digit_count++;
+
+    //Long
+    digit_value = floor(adjusted_long/place_value);
+    adjusted_long -= digit_value * place_value;
+    output += character_set[digit_value];
+    output += character_set[digit_value];
+    digit_count++;
+
+    if (digit_count == separator_position && digit_count < to_encode_length) {
+      output += "+";
+    }
+  }
   if(output_length > max_pair_length){
 
   }

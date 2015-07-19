@@ -21,11 +21,13 @@ private:
 
   double lat_precision(int length);
 
+  std::vector < std::string > output_names = {"latitude", "longitude"};
+
+  std::vector < double > resolution_levels = {20.0, 1.0, .05, .0025, .000125};
+
   std::string olc_encode_single(double lat, double longitude, int output_length);
 
   std::vector < double > olc_decode_single(std::string olc);
-
-  std::vector < std::string > output_names = {"latitude", "longitude"};
 
 public:
 
