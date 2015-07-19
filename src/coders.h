@@ -11,6 +11,10 @@ private:
 
   int max_code_length = 10;
 
+  int grid_rows = 5;
+
+  int max_pair_length = 10;
+
   double clip_lat(double lat);
 
   double clip_longitude(double longitude);
