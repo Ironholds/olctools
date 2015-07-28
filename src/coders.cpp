@@ -56,7 +56,7 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
   while(digit_count < to_encode_length){
 
     //Lat first
-    place_value = floor(digit_count/2);
+    place_value = resolution_levels[floor(digit_count/2)];
     digit_value = floor(adjusted_lat/place_value);
     adjusted_lat -= digit_value * place_value;
     output+= character_set[digit_value];
@@ -69,12 +69,20 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
     output += character_set[digit_value];
     digit_count++;
 
-    if (digit_count == separator_position && digit_count < to_encode_length) {
+    if(digit_count == separator_position && digit_count < to_encode_length) {
       output += "+";
     }
   }
-  if(output_length > max_pair_length){
 
+
+  if(output.size() < separator_position){
+    while(output.size() < separator_position){
+      output += padding;
+    }
+  }
+
+  if(output.size() == separator_position){
+    output += separator;
   }
 
   return output;
@@ -97,12 +105,21 @@ std::vector < std::string > olc_coders::olc_encode_vector(std::vector < double >
 
   if(code_length.size() == 1){
 
+    for(unsigned int i = 0; i < input_size; i++){
+      output[i] = olc_encode_single(latitude[i], longitude[i], code_length[0]);
+    }
+
   } else if(code_length.size() == input_size){
+
+    for(unsigned int i = 0; i < input_size; i++){
+      output[i] = olc_encode_single(latitude[i], longitude[i], code_length[i]);
+    }
 
   } else {
     throw std::range_error("the vector code_length must contain either one value, or one value for each input latitude and longitude");
   }
 
+  return output;
 }
 
 DataFrame olc_coders::olc_decode_vector(std::vector < std::string > olc){

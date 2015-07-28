@@ -25,19 +25,24 @@
 #'@export
 #'@aliases olc_validate
 #'@rdname olc_validate
-valid_olc <- function(codes) {
-    .Call('olctools_valid_olc', PACKAGE = 'olctools', codes)
+validate_olc <- function(codes) {
+    .Call('olctools_validate_olc', PACKAGE = 'olctools', codes)
 }
 
 #'@rdname olc_validate
 #'@export
-valid_short <- function(codes) {
-    .Call('olctools_valid_short', PACKAGE = 'olctools', codes)
+validate_short <- function(codes) {
+    .Call('olctools_validate_short', PACKAGE = 'olctools', codes)
 }
 
 #'@rdname olc_validate
 #'@export
-valid_full <- function(codes) {
-    .Call('olctools_valid_full', PACKAGE = 'olctools', codes)
+validate_full <- function(codes) {
+    .Call('olctools_validate_full', PACKAGE = 'olctools', codes)
+}
+
+#'@export
+encode_olc <- function(latitude, longitude, code_length) {
+    .Call('olctools_encode_olc', PACKAGE = 'olctools', latitude, longitude, code_length)
 }
 

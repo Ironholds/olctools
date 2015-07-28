@@ -27,7 +27,7 @@ using namespace Rcpp;
 //'@aliases olc_validate
 //'@rdname olc_validate
 //[[Rcpp::export]]
-std::vector < bool > valid_olc(std::vector < std::string > codes){
+std::vector < bool > validate_olc(std::vector < std::string > codes){
   olc_validate validate_inst;
   return validate_inst.olc_check_either_vector(codes);
 }
@@ -35,7 +35,7 @@ std::vector < bool > valid_olc(std::vector < std::string > codes){
 //'@rdname olc_validate
 //'@export
 //[[Rcpp::export]]
-std::vector < bool > valid_short(std::vector < std::string > codes){
+std::vector < bool > validate_short(std::vector < std::string > codes){
   olc_validate validate_inst;
   return validate_inst.olc_check_short_vector(codes);
 }
@@ -43,7 +43,15 @@ std::vector < bool > valid_short(std::vector < std::string > codes){
 //'@rdname olc_validate
 //'@export
 //[[Rcpp::export]]
-std::vector < bool > valid_full(std::vector < std::string > codes){
+std::vector < bool > validate_full(std::vector < std::string > codes){
   olc_validate validate_inst;
   return validate_inst.olc_check_full_vector(codes);
+}
+
+//'@export
+//[[Rcpp::export]]
+std::vector < std::string > encode_olc(std::vector < double > latitude, std::vector < double > longitude,
+                                       std::vector < int > code_length){
+  olc_coders code_inst;
+  return code_inst.olc_encode_vector(latitude, longitude, code_length);
 }
