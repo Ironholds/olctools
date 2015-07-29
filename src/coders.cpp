@@ -66,7 +66,6 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
     digit_value = floor(adjusted_long/place_value);
     adjusted_long -= digit_value * place_value;
     output += character_set[digit_value];
-    output += character_set[digit_value];
     digit_count++;
 
     if(digit_count == separator_position && digit_count < to_encode_length) {
