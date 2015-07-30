@@ -48,8 +48,8 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
   }
 
   int to_encode_length = fmin(output_length, max_pair_length);
-  int adjusted_lat = lat + max_latitude;
-  int adjusted_long = longitude + max_longitude;
+  double adjusted_lat = lat + max_latitude;
+  double adjusted_long = longitude + max_longitude;
   int digit_value, digit_count = 0;
   double place_value;
 

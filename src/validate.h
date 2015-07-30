@@ -25,7 +25,7 @@ protected:
 
   int max_latitude = 90;
 
-  int max_longitude = 100;
+  int max_longitude = 180;
 
 private:
 
