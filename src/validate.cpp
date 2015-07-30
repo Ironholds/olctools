@@ -135,6 +135,9 @@ std::vector < bool > olc_validate::olc_check_full_vector(std::vector < std::stri
   std::vector < bool > output(input_size);
 
   for(unsigned int i = 0; i < input_size; i++){
+    if((i % 10000) == 0){
+      Rcpp::checkUserInterrupt();
+    }
     output[i] = olc_check_full_single(olc[i]);
   }
 
@@ -146,6 +149,9 @@ std::vector < bool > olc_validate::olc_check_short_vector(std::vector < std::str
   std::vector < bool > output(input_size);
 
   for(unsigned int i = 0; i < input_size; i++){
+    if((i % 10000) == 0){
+      Rcpp::checkUserInterrupt();
+    }
     output[i] = olc_check_short_single(olc[i]);
   }
 
@@ -157,6 +163,9 @@ std::vector < bool > olc_validate::olc_check_either_vector(std::vector < std::st
   std::vector < bool > output(input_size);
 
   for(unsigned int i = 0; i < input_size; i++){
+    if((i % 10000) == 0){
+      Rcpp::checkUserInterrupt();
+    }
     output[i] = olc_check_either_single(olc[i]);
   }
 

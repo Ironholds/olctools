@@ -105,12 +105,18 @@ std::vector < std::string > olc_coders::olc_encode_vector(std::vector < double >
   if(code_length.size() == 1){
 
     for(unsigned int i = 0; i < input_size; i++){
+      if((i % 10000) == 0){
+        Rcpp::checkUserInterrupt();
+      }
       output[i] = olc_encode_single(latitude[i], longitude[i], code_length[0]);
     }
 
   } else if(code_length.size() == input_size){
 
     for(unsigned int i = 0; i < input_size; i++){
+      if((i % 10000) == 0){
+        Rcpp::checkUserInterrupt();
+      }
       output[i] = olc_encode_single(latitude[i], longitude[i], code_length[i]);
     }
 
