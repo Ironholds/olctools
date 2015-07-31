@@ -41,8 +41,24 @@ validate_full <- function(codes) {
     .Call('olctools_validate_full', PACKAGE = 'olctools', codes)
 }
 
+#'@title Encode Latitude and Longitude Pairs as Open Location Codes
+#'@description \code{encode_olc} creates Open Location Codes from
+#'latitude and longitude values, of a specified length.
+#'
+#'@param lats a numeric vector of latitudes.
+#'
+#'@param longs a numeric vector of longitudes, equivalent in size to \code{lats}
+#'
+#'@param length the length you want the resulting OLCs to be. The conventional lengths
+#'are 10 or 11, with any number above 8 and any \emph{even} number below it being acceptable. \code{length}
+#'should consist of either a single value, if you want all codes to be calculated to the same length, or a
+#'vector of values the same size as \code{lats} and \code{longs} if you want to pre-set values.
+#'
+#'@examples
+#'encode_olc(20.375, 2.775,6)
+#'
 #'@export
-encode_olc <- function(latitude, longitude, code_length) {
-    .Call('olctools_encode_olc', PACKAGE = 'olctools', latitude, longitude, code_length)
+encode_olc <- function(lats, longs, length) {
+    .Call('olctools_encode_olc', PACKAGE = 'olctools', lats, longs, length)
 }
 

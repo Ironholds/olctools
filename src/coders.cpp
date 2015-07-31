@@ -73,7 +73,6 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
     }
   }
 
-
   if(output.size() < separator_position){
     while(output.size() < separator_position){
       output += padding;

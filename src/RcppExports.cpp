@@ -39,15 +39,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // encode_olc
-std::vector < std::string > encode_olc(std::vector < double > latitude, std::vector < double > longitude, std::vector < int > code_length);
-RcppExport SEXP olctools_encode_olc(SEXP latitudeSEXP, SEXP longitudeSEXP, SEXP code_lengthSEXP) {
+std::vector < std::string > encode_olc(std::vector < double > lats, std::vector < double > longs, std::vector < int > length);
+RcppExport SEXP olctools_encode_olc(SEXP latsSEXP, SEXP longsSEXP, SEXP lengthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< std::vector < double > >::type latitude(latitudeSEXP);
-    Rcpp::traits::input_parameter< std::vector < double > >::type longitude(longitudeSEXP);
-    Rcpp::traits::input_parameter< std::vector < int > >::type code_length(code_lengthSEXP);
-    __result = Rcpp::wrap(encode_olc(latitude, longitude, code_length));
+    Rcpp::traits::input_parameter< std::vector < double > >::type lats(latsSEXP);
+    Rcpp::traits::input_parameter< std::vector < double > >::type longs(longsSEXP);
+    Rcpp::traits::input_parameter< std::vector < int > >::type length(lengthSEXP);
+    __result = Rcpp::wrap(encode_olc(lats, longs, length));
     return __result;
 END_RCPP
 }
