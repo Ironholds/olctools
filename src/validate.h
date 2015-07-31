@@ -1,5 +1,7 @@
+//[[Rcpp::depends(BH)]]
 #include <Rcpp.h>
 #include <regex>
+#include <boost/regex.hpp>
 using namespace Rcpp;
 
 #ifndef __OLC_VALIDATE__
@@ -9,23 +11,23 @@ class olc_validate {
 
 protected:
 
-  std::string valid_chars = "CFGHJMPQRVWX23456789+0";
+  std::string valid_chars;
 
-  std::string separator = "+";
+  std::string separator;
 
-  int separator_position = 8;
+  int separator_position;
 
-  std::string padding = "0";
+  std::string padding;
 
-  std::regex padding_regex = std::regex((padding + "+"));
+  boost::regex padding_regex;
 
-  std::string character_set = "23456789CFGHJMPQRVWX";
+  std::string character_set;
 
-  int charset_length = character_set.size();
+  int charset_length;
 
-  int max_latitude = 90;
+  int max_latitude;
 
-  int max_longitude = 180;
+  int max_longitude;
 
   bool olc_check_full_single(std::string olc);
 
@@ -42,7 +44,7 @@ public:
   std::vector < bool > olc_check_full_vector(std::vector < std::string > olc);
   std::vector < bool > olc_check_short_vector(std::vector < std::string > olc);
   std::vector < bool > olc_check_either_vector(std::vector < std::string > olc);
-
+  olc_validate();
 };
 
 #endif

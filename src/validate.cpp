@@ -42,9 +42,9 @@ bool olc_validate::olc_check_single(std::string olc){
   }
 
   //Check if padding is present
-  std::sregex_iterator iter(olc.begin(), olc.end(), padding_regex);
-  std::sregex_iterator end;
-  std::smatch results;
+  boost::sregex_iterator iter(olc.begin(), olc.end(), padding_regex);
+  boost::sregex_iterator end;
+  boost::smatch results;
   int regex_count = 0;
 
   while(iter != end){
@@ -170,4 +170,15 @@ std::vector < bool > olc_validate::olc_check_either_vector(std::vector < std::st
   }
 
   return output;
+}
+
+olc_validate::olc_validate(){
+  valid_chars = "CFGHJMPQRVWX23456789+0";
+  separator = "+";
+  separator_position = 8;
+  padding = "0";
+  character_set = "23456789CFGHJMPQRVWX";
+  charset_length = character_set.size();
+  max_latitude = 90;
+  max_longitude = 180;
 }

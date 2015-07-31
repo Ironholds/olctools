@@ -9,17 +9,17 @@ class olc_coders: public olc_validate {
 
 private:
 
-  int grid_rows = 5;
+  int grid_rows;
 
-  int grid_cols = 4;
+  int grid_cols;
 
-  double grid_degrees = 0.000125;
+  double grid_degrees;
 
-  int max_pair_length = 10;
+  int max_pair_length;
 
-  std::vector < std::string > output_names = {"latitude", "longitude"};
+  std::vector < std::string > output_names;
 
-  std::vector < double > resolution_levels = {20.0, 1.0, .05, .0025, .000125};
+  std::vector < double > resolution_levels;
 
   double clip_lat(double lat);
 
@@ -37,6 +37,8 @@ public:
                                                 std::vector < int > code_length);
 
   DataFrame olc_decode_vector(std::vector < std::string > olc);
+
+  olc_coders();
 
 };
 

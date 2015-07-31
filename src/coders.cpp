@@ -73,13 +73,13 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
     }
   }
 
-  if(output.size() < separator_position){
-    while(output.size() < separator_position){
+  if((signed int) output.size() < separator_position){
+    while((signed int) output.size() < separator_position){
       output += padding;
     }
   }
 
-  if(output.size() == separator_position){
+  if((signed int) output.size() == separator_position){
     output += separator;
   }
 
@@ -91,7 +91,7 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
     double adjusted_latitude = fmod((lat + max_latitude), lat_values);
     double adjusted_longitude = fmod((longitude + max_longitude), long_values);
 
-    for(unsigned int i = 0; i < additional_length; i++){
+    for(signed int i = 0; i < additional_length; i++){
       int row = floor(adjusted_latitude/(lat_values/grid_rows));
       int col = floor(adjusted_longitude/(long_values/grid_cols));
       lat_values = (lat_values/grid_rows);
@@ -128,7 +128,7 @@ std::vector < std::string > olc_coders::olc_encode_vector(std::vector < double >
     throw std::range_error("There must be as many longitude values as latitude values");
   }
 
-  int input_size = latitude.size();
+  unsigned int input_size = latitude.size();
   std::vector < std::string > output(input_size);
 
   if(code_length.size() == 1){
@@ -159,3 +159,17 @@ std::vector < std::string > olc_coders::olc_encode_vector(std::vector < double >
 DataFrame olc_coders::olc_decode_vector(std::vector < std::string > olc){
 
 }
+
+olc_coders::olc_coders(){
+  grid_rows = 5;
+  grid_cols = 4;
+  grid_degrees = 0.000125;
+  max_pair_length = 10;
+  output_names.push_back("latitude");
+  output_names.push_back("longitude");
+  resolution_levels.push_back(20.0);
+  resolution_levels.push_back(1.0);
+  resolution_levels.push_back(.05);
+  resolution_levels.push_back(.0025);
+  resolution_levels.push_back(.000125);
+};
