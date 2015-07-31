@@ -27,10 +27,10 @@ double olc_coders::clip_longitude(double longitude){
 }
 
 double olc_coders::lat_precision(int length){
-  if(length < 10){
+  if(length < max_pair_length){
     return pow(20, floor(length/ -2 +2));
   }
-  return pow(20, -3)/pow(grid_rows, length - 10);
+  return pow(20, -3)/pow(grid_rows, length - max_pair_length);
 }
 
 std::string olc_coders::olc_encode_single(double lat, double longitude, int output_length){
