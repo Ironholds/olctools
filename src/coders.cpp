@@ -83,6 +83,26 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
     output += separator;
   }
 
+  if(output_length > max_pair_length){
+
+    int additional_length = output_length - max_pair_length;
+    double lat_values = grid_degrees;
+    double long_values = grid_degrees;
+    double adjusted_latitude = fmod((lat + max_latitude), lat_values);
+    double adjusted_longitude = fmod((longitude + max_longitude), long_values);
+
+    for(unsigned int i = 0; i < additional_length; i++){
+      int row = floor(adjusted_latitude/(lat_values/grid_rows));
+      int col = floor(adjusted_longitude/(long_values/grid_cols));
+      lat_values = (lat_values/grid_rows);
+      long_values = (long_values/grid_rows);
+
+      adjusted_latitude -= (row * lat_values);
+      adjusted_longitude -= (row * long_values);
+      output += character_set[row * grid_cols + col];
+    }
+
+  }
   return output;
 }
 

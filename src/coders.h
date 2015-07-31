@@ -9,9 +9,11 @@ class olc_coders: public olc_validate {
 
 private:
 
-  int max_code_length = 10;
-
   int grid_rows = 5;
+
+  int grid_cols = 4;
+
+  double grid_degrees = 0.000125;
 
   int max_pair_length = 10;
 
