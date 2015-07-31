@@ -107,7 +107,17 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
 }
 
 std::vector < double > olc_coders::olc_decode_single(std::string olc){
+  if(!olc_check_full_single(olc)){
+    throw std::range_error("The Open Location Code provided must be complete. Incomplete code:" + olc);
+  }
 
+  //Remove separator and padding character, upper-case
+  std::string validated_olc;
+  for(unsigned int i = 0; i < olc.size(); i++){
+    if(olc[i] != padding[0] && olc[i] != separator[0]){
+      validated_olc.push_back(toupper(olc[i]));
+    }
+  }
 
 }
 

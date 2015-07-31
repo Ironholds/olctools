@@ -27,11 +27,11 @@ protected:
 
   int max_longitude = 180;
 
+  bool olc_check_full_single(std::string olc);
+
 private:
 
   bool olc_check_single(std::string olc);
-
-  bool olc_check_full_single(std::string olc);
 
   bool olc_check_short_single(std::string olc);
 
