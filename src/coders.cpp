@@ -36,7 +36,7 @@ double olc_coders::lat_precision(int length){
 std::string olc_coders::olc_encode_single(double lat, double longitude, int output_length){
 
   if(output_length < 2 || (output_length < separator_position && output_length % 2 == 1)){
-    throw std::range_error("The code_length value you have provided is not valid; see the documentation");
+    throw std::range_error("The length value you have provided is not valid; see the documentation");
   }
 
   std::string output;
