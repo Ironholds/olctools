@@ -97,8 +97,8 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
       lat_values = (lat_values/grid_rows);
       long_values = (long_values/grid_rows);
 
-      adjusted_latitude -= (row * lat_values);
-      adjusted_longitude -= (row * long_values);
+      adjusted_latitude -= row * lat_values;
+      adjusted_longitude -= col * long_values;
       output += character_set[row * grid_cols + col];
     }
 
