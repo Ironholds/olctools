@@ -29,13 +29,18 @@ whether OLCs are valid, full stop.
 }
 \examples{
 #Validate that a particular OLC is valid
-valid_olc("WC2345+G6g")
+validate_olc("WC2345+G6g")
 #[1] TRUE
 
 #It is! Is it a short?
-valid_short("WC2345+G6g")
+validate_short("WC2345+G6g")
 #[1] TRUE
 #Yep!
+
+#So it's not full?
+validate_full("WC2345+G6g")
+#[1] FALSE
+#Nope!
 }
 \seealso{
 \code{\link{decode_olc}} and \code{\link{encode_olc}} for creating

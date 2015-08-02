@@ -18,13 +18,18 @@
 #'
 #'@examples
 #'#Validate that a particular OLC is valid
-#'valid_olc("WC2345+G6g")
+#'validate_olc("WC2345+G6g")
 #'#[1] TRUE
 #'
 #'#It is! Is it a short?
-#'valid_short("WC2345+G6g")
+#'validate_short("WC2345+G6g")
 #'#[1] TRUE
 #'#Yep!
+#'
+#'#So it's not full?
+#'validate_full("WC2345+G6g")
+#'#[1] FALSE
+#'#Nope!
 #'@export
 #'@aliases olc_validate
 #'@rdname olc_validate
@@ -76,7 +81,7 @@ encode_olc <- function(lats, longs, length) {
 #'an equivalent tool.
 #'
 #'@examples
-#'olc_decode("7FG49Q00+")
+#'decode_olc("7FG49Q00+")
 #'
 #'@seealso \code{\link{encode_olc}} for the opposite operation.
 #'

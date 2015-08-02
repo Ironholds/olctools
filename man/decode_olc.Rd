@@ -16,7 +16,7 @@ valid (see \code{\link{validate_full}}) returns the minium, centred and maximum
 latitude and longitude for those coordinates.
 }
 \examples{
-olc_decode("7FG49Q00+")
+decode_olc("7FG49Q00+")
 }
 \seealso{
 \code{\link{encode_olc}} for the opposite operation.
