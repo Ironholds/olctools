@@ -114,7 +114,7 @@ std::vector < double > olc_coders::olc_decode_pair(std::string code, int offset)
   std::vector < double > output(2);
 
   while((inval * 2 + offset) < input_length){
-    output_value += character_set.find(code[inval * 2 + offset]);
+    output_value += (character_set.find(code[inval * 2 + offset]) * resolution_levels[inval]);
     inval++;
   }
 
@@ -149,7 +149,7 @@ std::vector < double > olc_coders::olc_decode_grid(std::string code){
 std::vector < double > olc_coders::olc_decode_single(std::string olc){
 
   if(!olc_check_full_single(olc)){
-    throw std::range_error("The Open Location Code provided must be complete. Incomplete code:" + olc);
+    throw std::range_error("The Open Location Codes provided must be complete. Incomplete code: " + olc);
   }
 
   //Remove separator and padding character, upper-case
@@ -162,25 +162,26 @@ std::vector < double > olc_coders::olc_decode_single(std::string olc){
 
   //Decode the pairs
   std::vector < double > output;
-  std::vector < double > holding = olc_decode_pair(olc.substr(0, max_pair_length), 0);
+  std::vector < double > holding = olc_decode_pair(validated_olc.substr(0, max_pair_length), 0);
   holding[0] -= max_latitude;
   holding[1] -= max_latitude;
   output.insert(output.end(), holding.begin(), holding.end());
 
-  holding = olc_decode_pair(olc.substr(0, max_pair_length), 1);
+  holding = olc_decode_pair(validated_olc.substr(0, max_pair_length), 1);
   holding[0] -= max_longitude;
   holding[1] -= max_longitude;
   output.insert(output.end(), holding.begin(), holding.end());
-  output.push_back(olc.size());
 
-  if(output[4] <= max_pair_length){
-    return output;
+  if(validated_olc.size() > max_pair_length){
+    std::vector < double > grid_decode_results = olc_decode_grid(validated_olc.substr(max_pair_length));
+    for(unsigned int i = 0; i < 4; i++){
+      output[i] += grid_decode_results[i];
+    }
   }
 
-  std::vector < double > grid_decode_results = olc_decode_grid(olc.substr(max_pair_length));
-  for(unsigned int i = 0; i < 4; i++){
-    output[i] += grid_decode_results[i];
-  }
+  output.push_back(std::min((output[0] + (output[1] - output[0])/2), (double) max_latitude));
+  output.push_back(std::min((output[2] + (output[3] - output[2])/2), (double) max_longitude));
+  output.push_back(validated_olc.size());
 
   return output;
 }
@@ -227,8 +228,10 @@ DataFrame olc_coders::olc_decode_vector(std::vector < std::string > olcs){
   std::vector < double > low_longs(input_size);
   std::vector < double > high_lats(input_size);
   std::vector < double > high_longs(input_size);
-  std::vector < double > code_lengths(input_size);
-  std::vector < double > holding(5);
+  std::vector < double > center_lats(input_size);
+  std::vector < double > center_longs(input_size);
+  std::vector < int > code_lengths(input_size);
+  std::vector < double > holding(7);
 
   for(unsigned int i = 0; i < input_size; i++){
     holding = olc_decode_single(olcs[i]);
@@ -236,11 +239,15 @@ DataFrame olc_coders::olc_decode_vector(std::vector < std::string > olcs){
     high_lats[i] = holding[1];
     low_longs[i] = holding[2];
     high_longs[i] = holding[3];
-    code_lengths[i] = holding[4];
+    center_lats[i] = holding[4];
+    center_longs[i] = holding[5];
+    code_lengths[i] = holding[6];
   }
 
   return DataFrame::create(_["latitude_low"] = low_lats,
                            _["longitude_low"] = low_longs,
+                           _["latitude_center"] = center_lats,
+                           _["longitude_center"] = center_longs,
                            _["latitude_high"] = high_lats,
                            _["longitude_high"] = high_longs,
                            _["code_lengths"] = code_lengths,

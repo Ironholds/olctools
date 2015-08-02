@@ -1,4 +1,5 @@
 #include <Rcpp.h>
+#include <algorithm>
 #include "validate.h"
 using namespace Rcpp;
 
