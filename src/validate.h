@@ -1,6 +1,5 @@
 //[[Rcpp::depends(BH)]]
 #include <Rcpp.h>
-#include <regex>
 #include <boost/regex.hpp>
 using namespace Rcpp;
 

@@ -67,7 +67,7 @@ bool olc_validate::olc_check_single(std::string olc){
     }
 
     //..and so is a single instance starting at 0
-    if(results.position(0) == 0){
+    if(results.position() == 0){
       return false;
     }
 
@@ -181,4 +181,5 @@ olc_validate::olc_validate(){
   charset_length = character_set.size();
   max_latitude = 90;
   max_longitude = 180;
+  padding_regex = boost::regex(padding + "+");
 }
