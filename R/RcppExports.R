@@ -62,3 +62,8 @@ encode_olc <- function(lats, longs, length) {
     .Call('olctools_encode_olc', PACKAGE = 'olctools', lats, longs, length)
 }
 
+#'@export
+decode_olc <- function(olcs) {
+    .Call('olctools_decode_olc', PACKAGE = 'olctools', olcs)
+}
+

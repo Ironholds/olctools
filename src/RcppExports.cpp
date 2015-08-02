@@ -51,3 +51,14 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// decode_olc
+DataFrame decode_olc(std::vector < std::string > olcs);
+RcppExport SEXP olctools_decode_olc(SEXP olcsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::vector < std::string > >::type olcs(olcsSEXP);
+    __result = Rcpp::wrap(decode_olc(olcs));
+    return __result;
+END_RCPP
+}

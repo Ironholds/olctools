@@ -106,7 +106,48 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
   return output;
 }
 
+std::vector < double > olc_coders::olc_decode_pair(std::string code, int offset){
+
+  unsigned int inval = 0;
+  unsigned int input_length = code.size();
+  double output_value = 0;
+  std::vector < double > output(2);
+
+  while((inval * 2 + offset) < input_length){
+    output_value += character_set.find(code[inval * 2 + offset]);
+    inval++;
+  }
+
+  output[0] = output_value;
+  output[1] = (output_value + resolution_levels[(inval - 1)]);
+  return output;
+}
+
+std::vector < double > olc_coders::olc_decode_grid(std::string code){
+  double latitude_low, longitude_low = 0.0;
+  double lat_place_value, long_place_value = grid_degrees;
+  int row, col, code_index = 0;
+  std::vector < double > output(4);
+
+  for(unsigned int i = 0; i < code.size(); i++){
+    code_index = character_set.find(code[i]);
+    row = floor(code_index/grid_cols);
+    col = code_index % grid_cols;
+    lat_place_value = (lat_place_value / grid_rows);
+    long_place_value = (long_place_value / grid_cols);
+    latitude_low += (row * lat_place_value);
+    longitude_low += (col * long_place_value);
+  }
+
+  output.push_back(latitude_low);
+  output.push_back(latitude_low + lat_place_value);
+  output.push_back(longitude_low);
+  output.push_back(longitude_low + long_place_value);
+  return output;
+}
+
 std::vector < double > olc_coders::olc_decode_single(std::string olc){
+
   if(!olc_check_full_single(olc)){
     throw std::range_error("The Open Location Code provided must be complete. Incomplete code:" + olc);
   }
@@ -119,6 +160,29 @@ std::vector < double > olc_coders::olc_decode_single(std::string olc){
     }
   }
 
+  //Decode the pairs
+  std::vector < double > output;
+  std::vector < double > holding = olc_decode_pair(olc.substr(0, max_pair_length), 0);
+  holding[0] -= max_latitude;
+  holding[1] -= max_latitude;
+  output.insert(output.end(), holding.begin(), holding.end());
+
+  holding = olc_decode_pair(olc.substr(0, max_pair_length), 1);
+  holding[0] -= max_longitude;
+  holding[1] -= max_longitude;
+  output.insert(output.end(), holding.begin(), holding.end());
+  output.push_back(olc.size());
+
+  if(output[4] <= max_pair_length){
+    return output;
+  }
+
+  std::vector < double > grid_decode_results = olc_decode_grid(olc.substr(max_pair_length));
+  for(unsigned int i = 0; i < 4; i++){
+    output[i] += grid_decode_results[i];
+  }
+
+  return output;
 }
 
 std::vector < std::string > olc_coders::olc_encode_vector(std::vector < double > latitude, std::vector < double > longitude,
@@ -156,8 +220,31 @@ std::vector < std::string > olc_coders::olc_encode_vector(std::vector < double >
   return output;
 }
 
-DataFrame olc_coders::olc_decode_vector(std::vector < std::string > olc){
+DataFrame olc_coders::olc_decode_vector(std::vector < std::string > olcs){
 
+  unsigned int input_size = olcs.size();
+  std::vector < double > low_lats(input_size);
+  std::vector < double > low_longs(input_size);
+  std::vector < double > high_lats(input_size);
+  std::vector < double > high_longs(input_size);
+  std::vector < double > code_lengths(input_size);
+  std::vector < double > holding(5);
+
+  for(unsigned int i = 0; i < input_size; i++){
+    holding = olc_decode_single(olcs[i]);
+    low_lats[i] = holding[0];
+    high_lats[i] = holding[1];
+    low_longs[i] = holding[2];
+    high_longs[i] = holding[3];
+    code_lengths[i] = holding[4];
+  }
+
+  return DataFrame::create(_["latitude_low"] = low_lats,
+                           _["longitude_low"] = low_longs,
+                           _["latitude_high"] = high_lats,
+                           _["longitude_high"] = high_longs,
+                           _["code_lengths"] = code_lengths,
+                           _["stringsAsFactors"] = false);
 }
 
 olc_coders::olc_coders(){
@@ -165,8 +252,6 @@ olc_coders::olc_coders(){
   grid_cols = 4;
   grid_degrees = 0.000125;
   max_pair_length = 10;
-  output_names.push_back("latitude");
-  output_names.push_back("longitude");
   resolution_levels.push_back(20.0);
   resolution_levels.push_back(1.0);
   resolution_levels.push_back(.05);

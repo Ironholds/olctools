@@ -71,3 +71,10 @@ std::vector < std::string > encode_olc(std::vector < double > lats, std::vector 
   olc_coders code_inst;
   return code_inst.olc_encode_vector(lats, longs, length);
 }
+
+//'@export
+//[[Rcpp::export]]
+DataFrame decode_olc(std::vector < std::string > olcs){
+  olc_coders code_inst;
+  return code_inst.olc_decode_vector(olcs);
+}

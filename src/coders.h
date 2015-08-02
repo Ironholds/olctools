@@ -17,8 +17,6 @@ private:
 
   int max_pair_length;
 
-  std::vector < std::string > output_names;
-
   std::vector < double > resolution_levels;
 
   double clip_lat(double lat);
@@ -29,6 +27,10 @@ private:
 
   std::string olc_encode_single(double lat, double longitude, int output_length);
 
+  std::vector < double > olc_decode_pair(std::string code, int offset);
+
+  std::vector < double > olc_decode_grid(std::string code);
+
   std::vector < double > olc_decode_single(std::string olc);
 
 public:
@@ -36,7 +38,7 @@ public:
   std::vector < std::string > olc_encode_vector(std::vector < double > latitude, std::vector < double > longitude,
                                                 std::vector < int > code_length);
 
-  DataFrame olc_decode_vector(std::vector < std::string > olc);
+  DataFrame olc_decode_vector(std::vector < std::string > olcs);
 
   olc_coders();
 
