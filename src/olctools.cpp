@@ -14,6 +14,9 @@ using namespace Rcpp;
 //'@return a vector of TRUE and FALSE values, where TRUE corresponds to a
 //'valid code and FALSE an invalid.
 //'
+//'@seealso \code{\link{decode_olc}} and \code{\link{encode_olc}} for creating
+//'and resolving valid Open Location Codes.
+//'
 //'@examples
 //'#Validate that a particular OLC is valid
 //'valid_olc("WC2345+G6g")
@@ -61,6 +64,8 @@ std::vector < bool > validate_full(std::vector < std::string > codes){
 //'should consist of either a single value, if you want all codes to be calculated to the same length, or a
 //'vector of values the same size as \code{lats} and \code{longs} if you want to pre-set values.
 //'
+//'@seealso \code{\link{decode_olc}} for the opposite operation.
+//'
 //'@examples
 //'encode_olc(20.375, 2.775,6)
 //'
@@ -72,6 +77,19 @@ std::vector < std::string > encode_olc(std::vector < double > lats, std::vector 
   return code_inst.olc_encode_vector(lats, longs, length);
 }
 
+//'@title Decode Open Location Codes into Latitude and Longitude Pairs
+//'@description \code{decode_olc} takes Open Location Codes and, if they're
+//'valid (see \code{\link{validate_full}}) returns the minium, centred and maximum
+//'latitude and longitude for those coordinates.
+//'
+//'@param olcs a vector of Open Location Codes, generated through \code{encode_olc} or
+//'an equivalent tool.
+//'
+//'@examples
+//'olc_decode("7FG49Q00+")
+//'
+//'@seealso \code{\link{encode_olc}} for the opposite operation.
+//'
 //'@export
 //[[Rcpp::export]]
 DataFrame decode_olc(std::vector < std::string > olcs){

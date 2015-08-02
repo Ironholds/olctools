@@ -37,4 +37,8 @@ valid_short("WC2345+G6g")
 #[1] TRUE
 #Yep!
 }
+\seealso{
+\code{\link{decode_olc}} and \code{\link{encode_olc}} for creating
+and resolving valid Open Location Codes.
+}
 

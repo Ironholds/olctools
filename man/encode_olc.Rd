@@ -23,4 +23,7 @@ latitude and longitude values, of a specified length.
 \examples{
 encode_olc(20.375, 2.775,6)
 }
+\seealso{
+\code{\link{decode_olc}} for the opposite operation.
+}
 
