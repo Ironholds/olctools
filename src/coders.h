@@ -1,4 +1,3 @@
-#include <Rcpp.h>
 #include <algorithm>
 #include "validate.h"
 using namespace Rcpp;
@@ -8,7 +7,7 @@ using namespace Rcpp;
 
 class olc_coders: public olc_validate {
 
-private:
+protected:
 
   int grid_rows;
 
@@ -26,13 +25,16 @@ private:
 
   double lat_precision(int length);
 
+  std::vector < double > olc_decode_single(std::string olc);
+
+private:
+
   std::string olc_encode_single(double lat, double longitude, int output_length);
 
   std::vector < double > olc_decode_pair(std::string code, int offset);
 
   std::vector < double > olc_decode_grid(std::string code);
 
-  std::vector < double > olc_decode_single(std::string olc);
 
 public:
 
