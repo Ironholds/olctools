@@ -4,3 +4,4 @@ olctools 0.2.0 [WIP]
 * shorten_olc added, allowing for full Open Location Codes to be converted to short ones.
 * recover_olc added, allowing for shortened codes to be converted to full ones.
 * dependency on Boost::Regex deprecated, meaning this /should/ work on Windows.
+* vignette added.
