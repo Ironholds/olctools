@@ -22,4 +22,9 @@ pairs. \code{recover_olc} recovers a full code from a shortened one, allowing it
 the closest match to the coordinates rather than to the original code, the characters may be very
 different.
 }
+\examples{
+# Shorten an OLC and then recover the nearest full code. Note the actual characters differ.
+shortened_code <- shorten_olc("8FVC9G8F+6X", 47.5, 8.5);
+recovered_code <- recover_olc(shortened_code, 47.4, 8.6);
+}
 

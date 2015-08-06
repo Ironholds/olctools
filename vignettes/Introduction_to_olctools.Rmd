@@ -1,0 +1,76 @@
+---
+title: "Introduction to olctools"
+author: "Oliver Keyes"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to olctools}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Open Location Codes in R
+`olctools` is an R package for handling [Open Location Codes](http://openlocationcode.com/), a Google standard for representing latitude and longitude pairs, to varying degrees of accuracy. The package allows you to encode, decode, shorten, lengthen and validate such codes.
+
+### How Open Location Codes work
+
+Locations are usually represented as street addresses or latitude/longitude pairs. The problem is that street addresses only work
+where such a street address *exists* (try using it to describe unmapped areas) and latitude/longitude pairs are pretty big and unwieldy.
+
+Open Location Codes compress latitude/longitude pairs to Latin alphanumeric characters in base 20, allowing an area of the globe the size of a football pitch to be described in just 11 characters. For more information, see [the definition](https://github.com/google/open-location-code/blob/master/docs/olc_definition.adoc)!
+
+### Encoding OLCs in R
+
+Open Location Codes come in two flavours; short, and full. Full codes refer to a specific, tiny area, while short codes (which are, uh. Shorter) exclude the larger-scale information in order to produce a smaller OLC, which can be used in conjunction with information about the general location in the same way a full code can.
+
+Producing a full code is easy, and just requires latitude and longitude values and an idea of how long you want your codes to be (in other words, how precise they are). The length is conventionally 10 or 11, but any number is acceptable, as long as it's not an odd number below 8:
+
+```{r, eval=FALSE}
+library(olctools)
+# Encode the location of Mbgathi Road, in Nairobi, Kenya
+encode_olc(-1.314063, 36.79881, 10)
+
+# [1] "6GCRMQPX+9G"
+```
+
+Generating a shortened code just requires the full code and the original latitude/longitude pair:
+```{r, eval=FALSE}
+shorten_olc("6GCRMQPX+9G", -1.314063, 36.79881)
+
+# [1] "+9G"
+```
+
+### Validating and decoding OLCs
+
+You might generate codes, or you might have them given to you, and in that case it's nice to be able to check that they're valid. This
+is done with one of three functions; `validate_full`, which takes a vector and verifies if each code is a valid *full* Open Location Code,
+`validate_short`, which does the same for short OLCs, and `validate_olc`, which simply checks that each element of the vector is a valid false *or* short code.
+
+And once you've made sure they're valid, why not convert them back into latitude and longitude pairs? Because OLCs refer to a grid rather
+than a point, the output isn't a precise latitude/longitude pair, but instead 3 pairs, representing the lower left, centre and upper right
+of the box the code covers. These are returned as a data.frame, along with the length of the code:
+
+```{r, eval=FALSE}
+str(decode_olc(c("6GCRMQPX+9G", "7FG49QCJ+2VX")))
+
+# 'data.frame':    2 obs. of  7 variables:
+#  $ latitude_low    : num  -1.31 20.37
+#  $ longitude_low   : num  36.8 2.78
+#  $ latitude_center : num  -1.31 20.37
+#  $ longitude_center: num  36.8 2.78
+#  $ latitude_high   : num  -1.31 20.37
+#  $ longitude_high  : num  36.8 2.78
+#  $ code_lengths    : int  10 11
+```
+
+Only full OLCs can be decoded, which leads us neatly on to...
+
+### Lengthening OLCs
+
+As mentioned, OLCs can be shortened and compressed, at the loss of some accuracy, to make them easier to pass around; they can then be paired with a broader geographic location to be resolved back to a full code. `shorten_olc("8FVC9G8F+6X", 47.4, 8.6)` produces `9G8F+6X`; we can turn that back into a full OLC with `recover_olc`:
+
+```{r, eval=FALSE}
+recover_olc("9G8F+6X", 47.4, 8.6)
+
+# [1] "8FVC9G8F+6X"
+```
