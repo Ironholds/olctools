@@ -90,3 +90,8 @@ decode_olc <- function(olcs) {
     .Call('olctools_decode_olc', PACKAGE = 'olctools', olcs)
 }
 
+#'@export
+shorten_olc <- function(olcs, latitudes, longitudes) {
+    .Call('olctools_shorten_olc', PACKAGE = 'olctools', olcs, latitudes, longitudes)
+}
+

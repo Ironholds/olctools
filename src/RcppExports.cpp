@@ -62,3 +62,16 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// shorten_olc
+std::vector < std::string > shorten_olc(std::vector < std::string > olcs, std::vector < double > latitudes, std::vector < double > longitudes);
+RcppExport SEXP olctools_shorten_olc(SEXP olcsSEXP, SEXP latitudesSEXP, SEXP longitudesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::vector < std::string > >::type olcs(olcsSEXP);
+    Rcpp::traits::input_parameter< std::vector < double > >::type latitudes(latitudesSEXP);
+    Rcpp::traits::input_parameter< std::vector < double > >::type longitudes(longitudesSEXP);
+    __result = Rcpp::wrap(shorten_olc(olcs, latitudes, longitudes));
+    return __result;
+END_RCPP
+}

@@ -1,5 +1,7 @@
 #include "validate.h"
 #include "coders.h"
+#include "manipulate.h"
+
 using namespace Rcpp;
 
 //'@title Check the Validity of Open Location Codes
@@ -100,4 +102,12 @@ std::vector < std::string > encode_olc(std::vector < double > lats, std::vector 
 DataFrame decode_olc(std::vector < std::string > olcs){
   olc_coders code_inst;
   return code_inst.olc_decode_vector(olcs);
+}
+
+//'@export
+//[[Rcpp::export]]
+std::vector < std::string > shorten_olc(std::vector < std::string > olcs, std::vector < double > latitudes,
+                                        std::vector < double > longitudes){
+  olc_manipulate manip_inst;
+  return manip_inst.shorten_vector(olcs, latitudes, longitudes);
 }
