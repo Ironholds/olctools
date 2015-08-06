@@ -19,6 +19,7 @@ latitude and longitude for those coordinates.
 decode_olc("7FG49Q00+")
 }
 \seealso{
-\code{\link{encode_olc}} for the opposite operation.
+\code{\link{encode_olc}} for the opposite operation, and \code{\link{shorten_olc}} to convert
+"full" Open Location Codes to "short" Open Location Codes.
 }
 

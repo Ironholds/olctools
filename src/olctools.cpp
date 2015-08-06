@@ -71,7 +71,8 @@ std::vector < bool > validate_full(std::vector < std::string > codes){
 //'should consist of either a single value, if you want all codes to be calculated to the same length, or a
 //'vector of values the same size as \code{lats} and \code{longs} if you want to pre-set values.
 //'
-//'@seealso \code{\link{decode_olc}} for the opposite operation.
+//'@seealso \code{\link{decode_olc}} for the opposite operation, and \code{\link{shorten_olc}} to convert
+//'"full" Open Location Codes to "short" Open Location Codes.
 //'
 //'@examples
 //'encode_olc(20.375, 2.775,6)
@@ -95,7 +96,8 @@ std::vector < std::string > encode_olc(std::vector < double > lats, std::vector 
 //'@examples
 //'decode_olc("7FG49Q00+")
 //'
-//'@seealso \code{\link{encode_olc}} for the opposite operation.
+//'@seealso \code{\link{encode_olc}} for the opposite operation, and \code{\link{shorten_olc}} to convert
+//'"full" Open Location Codes to "short" Open Location Codes.
 //'
 //'@export
 //[[Rcpp::export]]
@@ -104,10 +106,33 @@ DataFrame decode_olc(std::vector < std::string > olcs){
   return code_inst.olc_decode_vector(olcs);
 }
 
+//'@title Shorten Full Open Location Codes
+//'@description One of the things that makes OLCs useful is that they can shortened - you can trim
+//'characters off them, saving space without substantially compromising the accuracy. \code{shorten_olc}
+//'takes full-length OLCs (generated with \code{\link{encode_olc}} or any other way) and shortens them.
+//'
+//'@param olcs a vector of open location codes, generated with \code{\link{encode_olc}} or through
+//'any other means.
+//'
+//'@param lats a numeric vector of latitudes.
+//'
+//'@param longs a numeric vector of longitudes, equivalent in size to \code{lats}.
+//'
+//'@seealso \code{\link{encode_olc}} to create full Open Location Codes.
+//'@examples
+//'#Encode an OLC and then shorten it
+//'olc <- encode_olc(51.3708675,-1.217765625, 12)
+//'validate_full(olc)
+//'# [1] TRUE
+//'
+//'olc <- shorten_olc(olc,51.3708675,-1.217765625)
+//'validate_short(olc)
+//'# [1] TRUE
+//'
 //'@export
 //[[Rcpp::export]]
-std::vector < std::string > shorten_olc(std::vector < std::string > olcs, std::vector < double > latitudes,
-                                        std::vector < double > longitudes){
+std::vector < std::string > shorten_olc(std::vector < std::string > olcs, std::vector < double > lats,
+                                        std::vector < double > longs){
   olc_manipulate manip_inst;
-  return manip_inst.shorten_vector(olcs, latitudes, longitudes);
+  return manip_inst.shorten_vector(olcs, lats, longs);
 }

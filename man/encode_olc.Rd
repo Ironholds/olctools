@@ -24,6 +24,7 @@ latitude and longitude values, of a specified length.
 encode_olc(20.375, 2.775,6)
 }
 \seealso{
-\code{\link{decode_olc}} for the opposite operation.
+\code{\link{decode_olc}} for the opposite operation, and \code{\link{shorten_olc}} to convert
+"full" Open Location Codes to "short" Open Location Codes.
 }
 

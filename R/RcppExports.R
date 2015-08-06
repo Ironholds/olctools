@@ -62,7 +62,8 @@ validate_full <- function(codes) {
 #'should consist of either a single value, if you want all codes to be calculated to the same length, or a
 #'vector of values the same size as \code{lats} and \code{longs} if you want to pre-set values.
 #'
-#'@seealso \code{\link{decode_olc}} for the opposite operation.
+#'@seealso \code{\link{decode_olc}} for the opposite operation, and \code{\link{shorten_olc}} to convert
+#'"full" Open Location Codes to "short" Open Location Codes.
 #'
 #'@examples
 #'encode_olc(20.375, 2.775,6)
@@ -83,15 +84,39 @@ encode_olc <- function(lats, longs, length) {
 #'@examples
 #'decode_olc("7FG49Q00+")
 #'
-#'@seealso \code{\link{encode_olc}} for the opposite operation.
+#'@seealso \code{\link{encode_olc}} for the opposite operation, and \code{\link{shorten_olc}} to convert
+#'"full" Open Location Codes to "short" Open Location Codes.
 #'
 #'@export
 decode_olc <- function(olcs) {
     .Call('olctools_decode_olc', PACKAGE = 'olctools', olcs)
 }
 
+#'@title Shorten Full Open Location Codes
+#'@description One of the things that makes OLCs useful is that they can shortened - you can trim
+#'characters off them, saving space without substantially compromising the accuracy. \code{shorten_olc}
+#'takes full-length OLCs (generated with \code{\link{encode_olc}} or any other way) and shortens them.
+#'
+#'@param olcs a vector of open location codes, generated with \code{\link{encode_olc}} or through
+#'any other means.
+#'
+#'@param lats a numeric vector of latitudes.
+#'
+#'@param longs a numeric vector of longitudes, equivalent in size to \code{lats}.
+#'
+#'@seealso \code{\link{encode_olc}} to create full Open Location Codes.
+#'@examples
+#'#Encode an OLC and then shorten it
+#'olc <- encode_olc(51.3708675,-1.217765625, 12)
+#'validate_full(olc)
+#'# [1] TRUE
+#'
+#'olc <- shorten_olc(olc,51.3708675,-1.217765625)
+#'validate_short(olc)
+#'# [1] TRUE
+#'
 #'@export
-shorten_olc <- function(olcs, latitudes, longitudes) {
-    .Call('olctools_shorten_olc', PACKAGE = 'olctools', olcs, latitudes, longitudes)
+shorten_olc <- function(olcs, lats, longs) {
+    .Call('olctools_shorten_olc', PACKAGE = 'olctools', olcs, lats, longs)
 }
 
