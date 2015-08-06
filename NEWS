@@ -1,6 +1,7 @@
 olctools 0.2.1
 -----------------------------------
 * first CRAN release.
+* Bugfixes to allow for a Solaris release.
 
 olctools 0.2.0
 -----------------------------------
