@@ -1,6 +1,4 @@
-//[[Rcpp::depends(BH)]]
 #include <Rcpp.h>
-#include <boost/regex.hpp>
 using namespace Rcpp;
 
 #ifndef __OLC_VALIDATE__
@@ -10,15 +8,25 @@ class olc_validate {
 
 protected:
 
+  /**
+   * Valid characters for an OLC to have. Basically the character set and + or 0.
+   */
   std::string valid_chars;
 
+  /**
+   * The separator character for an OLC
+   */
   std::string separator;
 
+  /**
+   * Where in the OLC the separator character should appear.
+   */
   int separator_position;
 
+  /**
+   * The padding character (0).
+   */
   std::string padding;
-
-  boost::regex padding_regex;
 
   std::string character_set;
 

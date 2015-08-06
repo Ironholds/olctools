@@ -42,37 +42,28 @@ bool olc_validate::olc_check_single(std::string olc){
   }
 
   //Check if padding is present
-  boost::sregex_iterator iter(olc.begin(), olc.end(), padding_regex);
-  boost::sregex_iterator end;
-  boost::smatch results;
-  int regex_count = 0;
+  size_t regex_result = olc.find(padding);
+  if(regex_result == 0){
+    return false;
+  } else if(regex_result != std::string::npos){
 
-  while(iter != end){
-    results = *iter;
-    iter++;
-    regex_count++;
-  }
+    int last_loc = regex_result;
+    int match_sum = 1;
 
-  //If it is present..
-  if(regex_count){
+    while(regex_result != std::string::npos){
+      regex_result = olc.find(padding, regex_result + 1);
+      if(regex_result != std::string::npos){
+        if(last_loc + 1 != regex_result){
+          return false;
+        }
+        match_sum++;
+      }
+    }
 
-    //Multiple instances is verboten
-    if(regex_count > 1){
+    if(match_sum % 2 == 1){
       return false;
     }
 
-    //So is a single instant with a non-even count.
-    if(results.length(0) % 2 == 1){
-      return false;
-    }
-
-    //..and so is a single instance starting at 0
-    if(results.position() == 0){
-      return false;
-    }
-
-    //Iff the code has padding characters, the separator
-    //must be the last character
     if(separator_location != (olc.size() - 1)){
       return false;
     }
@@ -181,5 +172,4 @@ olc_validate::olc_validate(){
   charset_length = character_set.size();
   max_latitude = 90;
   max_longitude = 180;
-  padding_regex = boost::regex(padding + "+");
 }

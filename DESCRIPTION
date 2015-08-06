@@ -10,6 +10,5 @@ Description: 'Open Locator Codes' (http://openlocationcode.com/) are a Google-cr
 License: MIT + file LICENSE
 OS_type: unix
 Suggests: testthat
-LinkingTo: Rcpp,
-           BH
+LinkingTo: Rcpp
 Imports: Rcpp

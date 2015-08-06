@@ -1,2 +1,0 @@
-PKG_CPPFLAGS= -DNDEBUG -g
-PKG_LIBS=-lboost_regex
