@@ -111,12 +111,37 @@ decode_olc <- function(olcs) {
 #'validate_full(olc)
 #'# [1] TRUE
 #'
-#'olc <- shorten_olc(olc,51.3708675,-1.217765625)
+#'olc <- shorten_olc(olc, 51.3708675,-1.217765625)
 #'validate_short(olc)
 #'# [1] TRUE
 #'
 #'@export
 shorten_olc <- function(olcs, lats, longs) {
     .Call('olctools_shorten_olc', PACKAGE = 'olctools', olcs, lats, longs)
+}
+
+#'@title Recover Full Open Location Codes From Shortened Codes
+#'@description \code{\link{shorten_olc}} (and other sources) shorten a code, reducing
+#'the space it occupies. They also limit its ability to be translated back into latitude/longitude
+#'pairs. \code{recover_olc} recovers a full code from a shortened one, allowing it to be decoded with
+#'\code{\link{decode_olc}}. \emph{Some} loss of accuracy or precision is expected - and as it finds
+#'the closest match to the coordinates rather than to the original code, the characters may be very
+#'different.
+#'
+#'@param olcs a vector of short open location codes, generated with \code{\link{shorten_olc}} or through
+#'any other means.
+#'
+#'@param lats a numeric vector of latitudes.
+#'
+#'@param longs a numeric vector of longitudes, equivalent in size to \code{lats}.
+#'
+#'@examples
+#'# Shorten an OLC and then recover the nearest full code. Note the actual characters differ.
+#'shortened_code <- shorten_olc("8FVC9G8F+6X", 47.5, 8.5);
+#'recovered_code <- recover_olc(shortened_code, 47.4, 8.6);
+#'
+#'@export
+recover_olc <- function(olcs, lats, longs) {
+    .Call('olctools_recover_olc', PACKAGE = 'olctools', olcs, lats, longs)
 }
 

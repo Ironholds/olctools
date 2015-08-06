@@ -27,9 +27,10 @@ protected:
 
   std::vector < double > olc_decode_single(std::string olc);
 
+  std::string olc_encode_single(double lat, double longitude, int output_length);
+
 private:
 
-  std::string olc_encode_single(double lat, double longitude, int output_length);
 
   std::vector < double > olc_decode_pair(std::string code, int offset);
 

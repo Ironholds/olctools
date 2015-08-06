@@ -2,6 +2,7 @@
 
 export(decode_olc)
 export(encode_olc)
+export(recover_olc)
 export(shorten_olc)
 export(validate_full)
 export(validate_olc)

@@ -75,3 +75,16 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// recover_olc
+std::vector < std::string > recover_olc(std::vector < std::string > olcs, std::vector < double > lats, std::vector < double > longs);
+RcppExport SEXP olctools_recover_olc(SEXP olcsSEXP, SEXP latsSEXP, SEXP longsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::vector < std::string > >::type olcs(olcsSEXP);
+    Rcpp::traits::input_parameter< std::vector < double > >::type lats(latsSEXP);
+    Rcpp::traits::input_parameter< std::vector < double > >::type longs(longsSEXP);
+    __result = Rcpp::wrap(recover_olc(olcs, lats, longs));
+    return __result;
+END_RCPP
+}

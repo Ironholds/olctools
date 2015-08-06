@@ -30,6 +30,49 @@ std::string olc_manipulate::shorten_single(std::string olc, double latitude, dou
   return olc;
 }
 
+std::string olc_manipulate::recover_single(std::string olc, double latitude, double longitude){
+
+  if(!olc_check_short_single(olc)){
+    if(olc_check_full_single(olc)){
+      return olc;
+    }
+    throw std::range_error("codes provided to recover_olc must be valid short Open Location Codes. Offending code: " + olc);
+  }
+
+  double ref_longitude = clip_longitude(longitude);
+  double ref_latitude = clip_lat(latitude);
+
+  for(unsigned int i = 0; i < olc.size(); i++){
+    olc[i] = toupper(olc[i]);
+  }
+
+  int padding_length = (separator_position - olc.find(separator));
+  double resolution = pow(20, (2 - (padding_length/2)));
+  double area_to_edge = resolution / 2.0;
+  double round_lat = ref_latitude / resolution;
+  double round_long = ref_longitude / resolution;
+
+  std::vector < double > code_area = olc_decode_single(
+    olc_encode_single(round_lat, round_long, max_pair_length).substr(0, padding_length) + olc
+  );
+
+  double degrees_difference = (code_area[4] - ref_latitude);
+  if(degrees_difference > area_to_edge){
+    code_area[4] -= resolution;
+  } else if(degrees_difference < -area_to_edge){
+    code_area[4] += resolution;
+  }
+
+  degrees_difference = (code_area[5] - ref_longitude);
+  if(degrees_difference > area_to_edge){
+    code_area[5] -= resolution;
+  } else if(degrees_difference < -area_to_edge){
+    code_area[5] += resolution;
+  }
+
+  return(olc_encode_single(code_area[4], code_area[5], code_area[6]));
+}
+
 std::vector < std::string > olc_manipulate::shorten_vector(std::vector < std::string > olc, std::vector < double > latitude,
                                                           std::vector < double > longitude){
 
@@ -56,6 +99,41 @@ std::vector < std::string > olc_manipulate::shorten_vector(std::vector < std::st
         Rcpp::checkUserInterrupt();
       }
       output[i] = shorten_single(olc[i], latitude[i], longitude[i]);
+    }
+
+  } else {
+    throw std::range_error("the latitude and longitude parameters must contain either one value, or one value for each OLC");
+  }
+
+  return output;
+}
+
+std::vector < std::string > olc_manipulate::recover_vector(std::vector < std::string > olc, std::vector < double > latitude,
+                                                           std::vector < double > longitude){
+
+  if(latitude.size() != longitude.size()){
+    throw std::range_error("There must be as many longitude values as latitude values");
+  }
+
+  unsigned int input_size = olc.size();
+  std::vector < std::string > output(input_size);
+
+  if(latitude.size() == 1){
+
+    for(unsigned int i = 0; i < input_size; i++){
+      if((i % 10000) == 0){
+        Rcpp::checkUserInterrupt();
+      }
+      output[i] = recover_single(olc[i], latitude[0], longitude[0]);
+    }
+
+  } else if(latitude.size() == input_size){
+
+    for(unsigned int i = 0; i < input_size; i++){
+      if((i % 10000) == 0){
+        Rcpp::checkUserInterrupt();
+      }
+      output[i] = recover_single(olc[i], latitude[i], longitude[i]);
     }
 
   } else {
