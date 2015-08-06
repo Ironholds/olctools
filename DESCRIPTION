@@ -1,7 +1,7 @@
 Package: olctools
 Type: Package
 Title: Open Locator Code Handling in R
-Version: 0.2.0
+Version: 0.2.1
 Date: 2015-08-05
 Author: Oliver Keyes
 Maintainer: Oliver Keyes <ironholds@gmail.com>

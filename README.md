@@ -15,6 +15,10 @@ shorteners and extenders. Please note that this project is released with a [Cont
 
 ## Installation
 
-`olctools` depends on the Rcpp and BH packages, and can be obtained with:
+`olctools` depends on Rcpp but is otherwise dependency-free! It can be grabbed from CRAN with:
 
-    devtools::install_github("ironholds/olctools", ref = "0.2.0")
+    install.packages("olctools")
+    
+Alternately, the development version can be obtained through:
+
+    devtools::install_github("ironholds/olctools")
