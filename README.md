@@ -17,4 +17,4 @@ shorteners and extenders. Please note that this project is released with a [Cont
 
 `olctools` depends on the Rcpp and BH packages, and can be obtained with:
 
-    devtools::install_github("ironholds/olctools", ref = "0.1.0")
+    devtools::install_github("ironholds/olctools", ref = "0.2.0")

@@ -1,4 +1,4 @@
-olctools 0.2.0 [WIP]
+olctools 0.2.0
 -----------------------------------
 
 * shorten_olc added, allowing for full Open Location Codes to be converted to short ones.
