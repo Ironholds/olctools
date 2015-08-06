@@ -21,7 +21,7 @@ protected:
   /**
    * Where in the OLC the separator character should appear.
    */
-  int separator_position;
+  unsigned int separator_position;
 
   /**
    * The padding character (0).

@@ -26,14 +26,14 @@ double olc_coders::clip_longitude(double longitude){
   return longitude;
 }
 
-double olc_coders::lat_precision(int length){
+double olc_coders::lat_precision(unsigned int length){
   if(length < max_pair_length){
-    return pow(20, floor(length/ -2 +2));
+    return pow(20.0, floor(-(length/2.0) + 2.0));
   }
-  return pow(20, -3)/pow(grid_rows, length - max_pair_length);
+  return pow(20.0, -3.0)/pow( (double) grid_rows, (double) (length - max_pair_length));
 }
 
-std::string olc_coders::olc_encode_single(double lat, double longitude, int output_length){
+std::string olc_coders::olc_encode_single(double lat, double longitude, unsigned int output_length){
 
   if(output_length < 2 || (output_length < separator_position && output_length % 2 == 1)){
     throw std::range_error("The length value you have provided is not valid; see the documentation");
@@ -47,16 +47,17 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
     lat = lat_precision(output_length);
   }
 
-  int to_encode_length = fmin(output_length, max_pair_length);
+  unsigned int to_encode_length = fmin(output_length, max_pair_length);
   double adjusted_lat = lat + max_latitude;
   double adjusted_long = longitude + max_longitude;
-  int digit_value, digit_count = 0;
+  int digit_value = 0;
+  unsigned int digit_count = 0;
   double place_value;
 
   while(digit_count < to_encode_length){
 
     //Lat first
-    place_value = resolution_levels[floor(digit_count/2)];
+    place_value = resolution_levels[floor(digit_count/2.0)];
     digit_value = floor(adjusted_lat/place_value);
     adjusted_lat -= digit_value * place_value;
     output+= character_set[digit_value];
@@ -73,13 +74,13 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, int outp
     }
   }
 
-  if((signed int) output.size() < separator_position){
-    while((signed int) output.size() < separator_position){
+  if((unsigned int) output.size() < separator_position){
+    while((unsigned int) output.size() < separator_position){
       output += padding;
     }
   }
 
-  if((signed int) output.size() == separator_position){
+  if((unsigned int) output.size() == separator_position){
     output += separator;
   }
 
@@ -124,14 +125,18 @@ std::vector < double > olc_coders::olc_decode_pair(std::string code, int offset)
 }
 
 std::vector < double > olc_coders::olc_decode_grid(std::string code){
-  double latitude_low, longitude_low = 0.0;
-  double lat_place_value, long_place_value = grid_degrees;
-  int row, col, code_index = 0;
+  double latitude_low = 0.0;
+  double longitude_low = 0.0;
+  double lat_place_value = grid_degrees;
+  double long_place_value = grid_degrees;
+  int row = 0;
+  int col = 0;
+  int code_index = 0.0;
   std::vector < double > output(4);
 
   for(unsigned int i = 0; i < code.size(); i++){
     code_index = character_set.find(code[i]);
-    row = floor(code_index/grid_cols);
+    row = floor((double) code_index/ (double) grid_cols);
     col = code_index % grid_cols;
     lat_place_value = (lat_place_value / grid_rows);
     long_place_value = (long_place_value / grid_cols);
@@ -264,4 +269,4 @@ olc_coders::olc_coders(){
   resolution_levels.push_back(.05);
   resolution_levels.push_back(.0025);
   resolution_levels.push_back(.000125);
-};
+}

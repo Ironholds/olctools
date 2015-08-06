@@ -15,7 +15,7 @@ protected:
 
   double grid_degrees;
 
-  int max_pair_length;
+  unsigned int max_pair_length;
 
   std::vector < double > resolution_levels;
 
@@ -23,11 +23,11 @@ protected:
 
   double clip_longitude(double longitude);
 
-  double lat_precision(int length);
+  double lat_precision(unsigned int length);
 
   std::vector < double > olc_decode_single(std::string olc);
 
-  std::string olc_encode_single(double lat, double longitude, int output_length);
+  std::string olc_encode_single(double lat, double longitude, unsigned int output_length);
 
 private:
 

@@ -3,7 +3,7 @@
 bool olc_validate::olc_check_single(std::string olc){
 
   //Scan for illegal characters
-  int input_size = olc.size();
+  unsigned int input_size = olc.size();
   if(input_size == 0){
     return false;
   } else {
@@ -47,13 +47,13 @@ bool olc_validate::olc_check_single(std::string olc){
     return false;
   } else if(regex_result != std::string::npos){
 
-    int last_loc = regex_result;
+    signed int last_loc = regex_result;
     int match_sum = 1;
 
     while(regex_result != std::string::npos){
       regex_result = olc.find(padding, regex_result + 1);
       if(regex_result != std::string::npos){
-        if(last_loc + 1 != regex_result){
+        if(last_loc + 1 != (signed int) regex_result){
           return false;
         }
         match_sum++;
@@ -82,13 +82,13 @@ bool olc_validate::olc_check_full_single(std::string olc){
 
   //Retrieve the first latitude value (the first value), decode
   //it into numeric, and see if it's >= 180. If so, unpossible.
-  if((character_set.find(olc[0]) * charset_length) >= (max_latitude * 2)){
+  if( (signed int) (character_set.find(olc[0]) * charset_length) >= (max_latitude * 2)){
     return false;
   }
 
   //Do the same for longitude, only this time >=360
   if(olc.size() > 1){
-    if((character_set.find(olc[1]) * charset_length) >= (max_longitude * 2)){
+    if( (signed int) (character_set.find(olc[1]) * charset_length) >= (max_longitude * 2)){
       return false;
     }
   }
@@ -104,7 +104,7 @@ bool olc_validate::olc_check_short_single(std::string olc){
   }
 
   //If the separator is < separator_position..it's a short.
-  if(olc.find(separator) < separator_position){
+  if(olc.find(separator) != std::string::npos && (unsigned int) olc.find(separator) < separator_position){
     return true;
   };
 
@@ -122,7 +122,7 @@ bool olc_validate::olc_check_either_single(std::string olc){
 }
 
 std::vector < bool > olc_validate::olc_check_full_vector(std::vector < std::string > olc){
-  int input_size = olc.size();
+  unsigned int input_size = olc.size();
   std::vector < bool > output(input_size);
 
   for(unsigned int i = 0; i < input_size; i++){
@@ -136,7 +136,7 @@ std::vector < bool > olc_validate::olc_check_full_vector(std::vector < std::stri
 }
 
 std::vector < bool > olc_validate::olc_check_short_vector(std::vector < std::string > olc){
-  int input_size = olc.size();
+  unsigned int input_size = olc.size();
   std::vector < bool > output(input_size);
 
   for(unsigned int i = 0; i < input_size; i++){
@@ -150,7 +150,7 @@ std::vector < bool > olc_validate::olc_check_short_vector(std::vector < std::str
 }
 
 std::vector < bool > olc_validate::olc_check_either_vector(std::vector < std::string > olc){
-  int input_size = olc.size();
+  unsigned int input_size = olc.size();
   std::vector < bool > output(input_size);
 
   for(unsigned int i = 0; i < input_size; i++){

@@ -47,7 +47,7 @@ std::string olc_manipulate::recover_single(std::string olc, double latitude, dou
   }
 
   int padding_length = (separator_position - olc.find(separator));
-  double resolution = pow(20, (2 - (padding_length/2)));
+  double resolution = pow(20.0, (2.0 - (padding_length / 2.0)));
   double area_to_edge = resolution / 2.0;
   double round_lat = ref_latitude / resolution;
   double round_long = ref_longitude / resolution;
