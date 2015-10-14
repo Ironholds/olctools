@@ -8,7 +8,6 @@ Maintainer: Oliver Keyes <ironholds@gmail.com>
 Description: 'Open Location Codes' (http://openlocationcode.com/) are a Google-created standard for identifying geographic locations.
              olctools provides utilities for validating, encoding and decoding entries that follow this standard.
 License: MIT + file LICENSE
-OS_type: unix
 Suggests: testthat,
     knitr
 LinkingTo: Rcpp
