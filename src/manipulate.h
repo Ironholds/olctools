@@ -18,11 +18,9 @@ private:
 
 public:
 
-  std::vector < std::string > shorten_vector(std::vector < std::string > olc, std::vector < double > latitude,
-                                             std::vector < double > longitude);
+  CharacterVector shorten_vector(CharacterVector olc, NumericVector latitude, NumericVector longitude);
 
-  std::vector < std::string > recover_vector(std::vector < std::string > olc, std::vector < double > latitude,
-                                             std::vector < double > longitude);
+  CharacterVector recover_vector(CharacterVector olc, NumericVector latitude, NumericVector longitude);
 
   olc_manipulate();
 };

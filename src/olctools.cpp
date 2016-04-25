@@ -37,7 +37,7 @@ using namespace Rcpp;
 //'@aliases olc_validate
 //'@rdname olc_validate
 //[[Rcpp::export]]
-std::vector < bool > validate_olc(std::vector < std::string > codes){
+LogicalVector validate_olc(CharacterVector codes){
   olc_validate validate_inst;
   return validate_inst.olc_check_either_vector(codes);
 }
@@ -45,7 +45,7 @@ std::vector < bool > validate_olc(std::vector < std::string > codes){
 //'@rdname olc_validate
 //'@export
 //[[Rcpp::export]]
-std::vector < bool > validate_short(std::vector < std::string > codes){
+LogicalVector validate_short(CharacterVector codes){
   olc_validate validate_inst;
   return validate_inst.olc_check_short_vector(codes);
 }
@@ -53,7 +53,7 @@ std::vector < bool > validate_short(std::vector < std::string > codes){
 //'@rdname olc_validate
 //'@export
 //[[Rcpp::export]]
-std::vector < bool > validate_full(std::vector < std::string > codes){
+LogicalVector validate_full(CharacterVector codes){
   olc_validate validate_inst;
   return validate_inst.olc_check_full_vector(codes);
 }
@@ -79,8 +79,7 @@ std::vector < bool > validate_full(std::vector < std::string > codes){
 //'
 //'@export
 //[[Rcpp::export]]
-std::vector < std::string > encode_olc(std::vector < double > lats, std::vector < double > longs,
-                                       std::vector < int > length){
+CharacterVector encode_olc(NumericVector lats, NumericVector longs, IntegerVector length){
   olc_coders code_inst;
   return code_inst.olc_encode_vector(lats, longs, length);
 }
@@ -101,7 +100,7 @@ std::vector < std::string > encode_olc(std::vector < double > lats, std::vector 
 //'
 //'@export
 //[[Rcpp::export]]
-DataFrame decode_olc(std::vector < std::string > olcs){
+DataFrame decode_olc(CharacterVector olcs){
   olc_coders code_inst;
   return code_inst.olc_decode_vector(olcs);
 }
@@ -131,8 +130,7 @@ DataFrame decode_olc(std::vector < std::string > olcs){
 //'
 //'@export
 //[[Rcpp::export]]
-std::vector < std::string > shorten_olc(std::vector < std::string > olcs, std::vector < double > lats,
-                                        std::vector < double > longs){
+CharacterVector shorten_olc(CharacterVector olcs, NumericVector lats, NumericVector longs){
   olc_manipulate manip_inst;
   return manip_inst.shorten_vector(olcs, lats, longs);
 }
@@ -159,8 +157,7 @@ std::vector < std::string > shorten_olc(std::vector < std::string > olcs, std::v
 //'
 //'@export
 //[[Rcpp::export]]
-std::vector < std::string > recover_olc(std::vector < std::string > olcs, std::vector < double > lats,
-                                        std::vector < double > longs){
+CharacterVector recover_olc(CharacterVector olcs, NumericVector lats, NumericVector longs){
   olc_manipulate manip_inst;
   return manip_inst.recover_vector(olcs, lats, longs);
 }

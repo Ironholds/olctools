@@ -48,9 +48,9 @@ private:
 
 public:
 
-  std::vector < bool > olc_check_full_vector(std::vector < std::string > olc);
-  std::vector < bool > olc_check_short_vector(std::vector < std::string > olc);
-  std::vector < bool > olc_check_either_vector(std::vector < std::string > olc);
+  LogicalVector olc_check_full_vector(CharacterVector olc);
+  LogicalVector olc_check_short_vector(CharacterVector olc);
+  LogicalVector olc_check_either_vector(CharacterVector olc);
   olc_validate();
 };
 

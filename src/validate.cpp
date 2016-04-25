@@ -121,43 +121,55 @@ bool olc_validate::olc_check_either_single(std::string olc){
   return false;
 }
 
-std::vector < bool > olc_validate::olc_check_full_vector(std::vector < std::string > olc){
+LogicalVector olc_validate::olc_check_full_vector(CharacterVector olc){
   unsigned int input_size = olc.size();
-  std::vector < bool > output(input_size);
+  LogicalVector output(input_size);
 
   for(unsigned int i = 0; i < input_size; i++){
     if((i % 10000) == 0){
       Rcpp::checkUserInterrupt();
     }
-    output[i] = olc_check_full_single(olc[i]);
+    if(olc[i] == NA_STRING){
+      output[i] = NA_LOGICAL;
+    } else {
+      output[i] = olc_check_full_single(Rcpp::as<std::string>(olc[i]));
+    }
   }
 
   return output;
 }
 
-std::vector < bool > olc_validate::olc_check_short_vector(std::vector < std::string > olc){
+LogicalVector olc_validate::olc_check_short_vector(CharacterVector olc){
   unsigned int input_size = olc.size();
-  std::vector < bool > output(input_size);
+  LogicalVector output(input_size);
 
   for(unsigned int i = 0; i < input_size; i++){
     if((i % 10000) == 0){
       Rcpp::checkUserInterrupt();
     }
-    output[i] = olc_check_short_single(olc[i]);
+    if(olc[i] == NA_STRING){
+      output[i] = NA_LOGICAL;
+    } else {
+      output[i] = olc_check_short_single(Rcpp::as<std::string>(olc[i]));
+    }
   }
 
   return output;
 }
 
-std::vector < bool > olc_validate::olc_check_either_vector(std::vector < std::string > olc){
+LogicalVector olc_validate::olc_check_either_vector(CharacterVector olc){
   unsigned int input_size = olc.size();
-  std::vector < bool > output(input_size);
+  LogicalVector output(input_size);
 
   for(unsigned int i = 0; i < input_size; i++){
     if((i % 10000) == 0){
       Rcpp::checkUserInterrupt();
     }
-    output[i] = olc_check_either_single(olc[i]);
+    if(olc[i] == NA_STRING){
+      output[i] = NA_LOGICAL;
+    } else {
+      output[i] = olc_check_either_single(Rcpp::as<std::string>(olc[i]));
+    }
   }
 
   return output;

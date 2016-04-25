@@ -39,10 +39,10 @@ private:
 
 public:
 
-  std::vector < std::string > olc_encode_vector(std::vector < double > latitude, std::vector < double > longitude,
-                                                std::vector < int > code_length);
+  CharacterVector olc_encode_vector(NumericVector latitude, NumericVector longitude,
+                                    IntegerVector code_length);
 
-  DataFrame olc_decode_vector(std::vector < std::string > olcs);
+  DataFrame olc_decode_vector(CharacterVector olcs);
 
   olc_coders();
 

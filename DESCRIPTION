@@ -1,15 +1,22 @@
 Package: olctools
 Type: Package
 Title: Open Location Code Handling in R
-Version: 0.2.1
-Date: 2015-08-05
+Version: 0.3.0
+Date: 2016-04-24
 Author: Oliver Keyes
 Maintainer: Oliver Keyes <ironholds@gmail.com>
-Description: 'Open Location Codes' (http://openlocationcode.com/) are a Google-created standard for identifying geographic locations.
-             olctools provides utilities for validating, encoding and decoding entries that follow this standard.
+Description: 'Open Location Codes' (http://openlocationcode.com/) are a Google-
+    created standard for identifying geographic locations. olctools provides
+    utilities for validating, encoding and decoding entries that follow this
+    standard.
 License: MIT + file LICENSE
-Suggests: testthat,
+Suggests:
+    testthat,
     knitr
 LinkingTo: Rcpp
-Imports: Rcpp
+Imports:
+    Rcpp
 VignetteBuilder: knitr
+RoxygenNote: 5.0.1
+URL: https://github.com/Ironholds/olctools
+BugReports: https://github.com/ironholds/olctools/issues
