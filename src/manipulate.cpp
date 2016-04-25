@@ -49,11 +49,9 @@ std::string olc_manipulate::recover_single(std::string olc, double latitude, dou
   int padding_length = (separator_position - olc.find(separator));
   double resolution = pow(20.0, (2.0 - (padding_length / 2.0)));
   double area_to_edge = resolution / 2.0;
-  double round_lat = ref_latitude / resolution;
-  double round_long = ref_longitude / resolution;
 
   std::vector < double > code_area = olc_decode_single(
-    olc_encode_single(round_lat, round_long, max_pair_length).substr(0, padding_length) + olc
+    olc_encode_single(ref_latitude, ref_longitude, max_pair_length).substr(0, padding_length) + olc
   );
 
   double degrees_difference = (code_area[4] - ref_latitude);

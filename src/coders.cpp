@@ -60,7 +60,7 @@ std::string olc_coders::olc_encode_single(double lat, double longitude, unsigned
     place_value = resolution_levels[floor(digit_count/2.0)];
     digit_value = floor(adjusted_lat/place_value);
     adjusted_lat -= digit_value * place_value;
-    output+= character_set[digit_value];
+    output += character_set[digit_value];
     digit_count++;
 
     //Long
