@@ -2,7 +2,7 @@ Package: olctools
 Type: Package
 Title: Open Location Code Handling in R
 Version: 0.3.0
-Date: 2016-04-24
+Date: 2016-05-07
 Author: Oliver Keyes
 Maintainer: Oliver Keyes <ironholds@gmail.com>
 Description: 'Open Location Codes' (http://openlocationcode.com/) are a Google-
