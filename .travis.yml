@@ -9,7 +9,6 @@ env:
    - CRAN: http://cran.rstudio.com
 
 r_packages:
-   - rmarkdown
    - testthat
    - knitr
    - Rcpp

@@ -6,7 +6,7 @@ __Author:__ Oliver Keyes<br/>
 __License:__ [MIT](https://opensource.org/licenses/MIT)<br/>
 __Status:__ Stable
 
-![downloads](https://cranlogs.r-pkg.org/badges/grand-total/olctools)
+![downloads](http://cranlogs.r-pkg.org/badges/grand-total/olctools)
 [![Travis-CI Build Status](https://travis-ci.org/Ironholds/olctools.svg?branch=master)](https://travis-ci.org/Ironholds/olctools)
 
 The Google Open Location Code standard allows you to encode the latitude and longitude of an area into a compressed string,
