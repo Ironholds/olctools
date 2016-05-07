@@ -1,6 +1,8 @@
 olctools 0.3.0 [WIP]
 -----------------------------------
 * NA support incorporated.
+* Bug in reference implementation with recovering shortened OLCs fixed over there, and subsequently
+fixed over here!
 
 olctools 0.2.1
 -----------------------------------
