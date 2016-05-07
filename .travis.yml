@@ -12,6 +12,7 @@ r_packages:
    - testthat
    - knitr
    - Rcpp
+   - rmarkdown
 notifications:
   email:
     on_success: change
